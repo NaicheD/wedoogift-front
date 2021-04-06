@@ -1,0 +1,29 @@
+<form (ngSubmit)="onSubmit()">
+  <label for="amount">Montant désiré :</label>
+  <input id="amount" name="amount" type="number" min="0" [(ngModel)]="amount">
+  <button type="submit" [disabled]="!amount">VALIDER</button>
+</form>
+
+<div *ngIf="warningMessage" class="text-bloc warning-message">{{warningMessage}}</div>
+
+<div *ngIf="equalCombination" class="text-bloc">
+  <span *ngIf="equalCombination.cards.length >= 2">Votre montant est composé des cartes suivantes :</span>
+  <span *ngIf="equalCombination.cards.length == 1">Votre montant est composé de la carte suivante :</span>
+  <ul>
+    <li *ngFor="let card of equalCombination.cards">{{card}}</li>
+  </ul>
+</div>
+
+<!--Dans tout les cas si nous avons ceil alors nous avons floor-->
+<!--Car sinon nous aurions relancé automatiquement le calcul-->
+<div *ngIf="!equalCombination && ceilCombination && floorCombination" class="text-bloc">
+  <span>Nous vous proposons les combinaisons suivantes.</span>
+  <div class="text-bloc" *ngFor="let combination of  [floorCombination, ceilCombination]">
+    <span *ngIf="combination.cards.length >= 2">Pour une valeur de {{combination.value}} composé des cartes suivantes :</span>
+    <span *ngIf="combination.cards.length == 1">Pour une valeur de {{combination.value}} composé de la carte suivante :</span>
+    <ul>
+      <li *ngFor="let card of combination.cards">{{card}}</li>
+    </ul>
+    <button (click)="loadCombination(combination)">Accepter {{combination.value}}</button>
+  </div>
+</div>

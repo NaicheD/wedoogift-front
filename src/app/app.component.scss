@@ -1,0 +1,35 @@
+@import 'src/app/app-theme';
+
+$header-height: 2rem;
+
+#header {
+  height: $header-height;
+  background: lightgrey;
+
+  .router-button {
+    display: inline-block;
+    background: $app-third-color;
+    height: $header-height;
+    width: 5rem;
+    margin-left: $app-spacing;
+    text-align: center;
+    line-height: 2;
+    outline: none;
+
+    &.active {
+      cursor:default;
+      background: $app-main-color;
+    }
+
+    &:hover:not(.active) {
+      cursor: pointer;
+      background: $app-second-color;
+    }
+  }
+}
+
+#content {
+  padding: $app-spacing;
+  background: $app-main-color;
+  height: calc(100% - #{$header-height} - #{$app-spacing} - #{$app-spacing});
+}
