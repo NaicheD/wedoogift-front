@@ -1,13 +1,18 @@
+<!--Saisie du montant-->
 <form (ngSubmit)="onSubmit()">
   <label for="amount">Montant désiré :</label><br>
   <input id="amount" name="amount" type="number" min="0" [(ngModel)]="amount">
   <button type="submit" [disabled]="!amount">VALIDER</button>
 </form>
+
+<!--Montant suivant et précédent-->
 <button (click)="previousAmount()">Montant précédent</button>
 <button (click)="nextAmount()">Montant suivant</button>
 
+<!--Message informatif-->
 <div *ngIf="warningMessage" class="text-bloc warning-message">{{warningMessage}}</div>
 
+<!--Si nous avons une combinaison-->
 <div *ngIf="equalCombination" class="text-bloc">
   <span *ngIf="equalCombination.cards.length >= 2">Votre montant est composé des cartes suivantes :</span>
   <span *ngIf="equalCombination.cards.length == 1">Votre montant est composé de la carte suivante :</span>
@@ -16,6 +21,7 @@
   </ul>
 </div>
 
+<!--Si nous n'avons pas de combinaison-->
 <!--Dans tout les cas si nous avons ceil alors nous avons floor -->
 <!--Car sinon nous aurions relancé automatiquement le calcul -->
 <div *ngIf="!equalCombination && ceilCombination && floorCombination" class="text-bloc">
